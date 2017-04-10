@@ -5,6 +5,7 @@ import (
 )
 
 func main() {
-	cards := cardlib.GetDeckOfCards()
-	cards.Print()
+	deck := cardlib.GetDeckOfCards()
+	deck.Shuffle()
+	deck.Print()
 }

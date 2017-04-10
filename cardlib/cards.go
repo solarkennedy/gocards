@@ -3,6 +3,7 @@ package cardlib
 import (
 	"fmt"
 	"github.com/fatih/color"
+	"math/rand"
 )
 
 var Spades = []string{`🂡`, `🂢`, `🂣`, `🂤`, `🂥`, `🂦`, `🂧`, `🂨`, `🂩`, `🂪`, `🂫`, `🂭`, `🂮`}
@@ -44,15 +45,28 @@ func GetDeckOfCards() *Deck {
 	return deck
 }
 
+func PrintCard(c string) {
+	if stringInSlice(c, Spades) || stringInSlice(c, Clubs) {
+		fmt.Printf("%s ", color.BlackString(c))
+	} else if stringInSlice(c, Hearts) || stringInSlice(c, Diamonds) {
+		fmt.Printf("%s ", color.RedString(c))
+	}
+}
+
 func (d *Deck) Print() {
 	for _, c := range d.cards {
-		if stringInSlice(c, Spades) || stringInSlice(c, Clubs) {
-			fmt.Printf("%s ", color.BlackString(c))
-		} else if stringInSlice(c, Hearts) || stringInSlice(c, Diamonds) {
-			fmt.Printf("%s ", color.RedString(c))
-		}
+		PrintCard(c)
 	}
 	fmt.Println()
+}
+
+func (d *Deck) Shuffle() {
+	dest := make([]string, len(d.cards))
+	perm := rand.Perm(len(d.cards))
+	for i := 0; i < len(d.cards); i++ {
+		dest[i] = d.cards[perm[i]]
+	}
+	d.cards = dest
 }
 
 func Append(slice, data []byte) []byte {
