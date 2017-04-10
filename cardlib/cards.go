@@ -45,17 +45,18 @@ func GetDeckOfCards() *Deck {
 	return deck
 }
 
-func PrintCard(c string) {
+func ColorizeCard(c string) string {
 	if stringInSlice(c, Spades) || stringInSlice(c, Clubs) {
-		fmt.Printf("%s ", color.BlackString(c))
+		return fmt.Sprintf("%s ", color.BlackString(c))
 	} else if stringInSlice(c, Hearts) || stringInSlice(c, Diamonds) {
-		fmt.Printf("%s ", color.RedString(c))
+		return fmt.Sprintf("%s ", color.RedString(c))
 	}
+	return ""
 }
 
 func (d *Deck) Print() {
 	for _, c := range d.cards {
-		PrintCard(c)
+		fmt.Print(ColorizeCard(c))
 	}
 	fmt.Println()
 }
@@ -67,6 +68,21 @@ func (d *Deck) Shuffle() {
 		dest[i] = d.cards[perm[i]]
 	}
 	d.cards = dest
+}
+
+func (d *Deck) DealIntoHands(hands int, n int) [][]string {
+	hand_array := make([][]string, hands)
+	fmt.Printf("Dealing into %d hands of %d cards each...\n", hands, n)
+	for h := 0; h < hands; h++ {
+		hand_array[h] = make([]string, 0)
+	}
+	for len(d.cards) > 0 {
+		for h := 0; h < hands; h++ {
+			card := d.Pop()
+			hand_array[h] = append(hand_array[h], card)
+		}
+	}
+	return hand_array
 }
 
 func Append(slice, data []byte) []byte {
@@ -92,4 +108,16 @@ func stringInSlice(a string, list []string) bool {
 		}
 	}
 	return false
+}
+
+func PopSlice(a []string) (string, []string) {
+	x := ""
+	x, a = a[len(a)-1], a[:len(a)-1]
+	return x, a
+}
+
+func (d *Deck) Pop() string {
+	card := d.cards[len(d.cards)-1]
+	d.cards = d.cards[:len(d.cards)-1]
+	return card
 }

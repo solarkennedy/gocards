@@ -1,11 +1,11 @@
 package main
 
 import (
-	"github.com/solarkennedy/gocards/cardlib"
+	_ "fmt"
+	_ "github.com/solarkennedy/gocards/cardlib"
+	"github.com/solarkennedy/gocards/games"
 )
 
 func main() {
-	deck := cardlib.GetDeckOfCards()
-	deck.Shuffle()
-	deck.Print()
+	games.War()
 }
