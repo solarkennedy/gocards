@@ -25,25 +25,20 @@ func War() {
 		hand1, hand2, winner = doRound(hand1, hand2, 0)
 		if len(hand1) + len(hand2) != 52 { panic("BUG: somehow a card got lost!")}
 	}
-
 	fmt.Printf("\nPlayer %d won after %d rounds!\n", winner, round_counter)
 }
 
 func doRound(hand1 []string, hand2 []string, war_depth int) ([]string, []string, int) {
-	card1 := "X"
-	card2 := "Y"
+	var card1, card2 string
 	winner := 0
 	indent := strings.Repeat("\t", war_depth)
 
-	fmt.Printf("%sHand1: %v\n", indent, hand1)
-	fmt.Printf("%sHand2: %v\n", indent, hand2)
 	if len(hand1) == 0 {
-
-		fmt.Printf("Player1 has no cards.\n")
+		fmt.Println("Player1 has no cards.")
 		return hand1, hand2, 2
 
 	} else if len(hand2) == 0{
-		fmt.Printf("Player2 has no cards.\n")
+		fmt.Println("Player2 has no cards.")
 		return hand1, hand2, 1
 	}
 
@@ -60,13 +55,7 @@ func doRound(hand1 []string, hand2 []string, war_depth int) ([]string, []string,
 	}
 	fmt.Printf("%sPlayer1: %s	Player 2: %s (%s)\n", indent, cardlib.ColorizeCard(card1), cardlib.ColorizeCard(card2), cmp_string)
 	if cmp == 0 {
-		card1a := "1A"
-		card2a := "2A"
-		card1b := "1B"
-		card2b := "2B"
-		card1c := "1C"
-		card2c := "2C"
-
+		var card1a, card2a, card1b, card2b, card1c, card2c string
 		if len(hand1) == 0 {
 			fmt.Printf("Player1 doesn't have enough cards for war. Hand is %v\n", hand1)
 			hand2 = append(hand2, card1)
@@ -157,8 +146,8 @@ func doRound(hand1 []string, hand2 []string, war_depth int) ([]string, []string,
 		hand2 = append(hand2, card2)
 		winner = 2
 	}
-	fmt.Printf("%sHand1: %v (%d cards)\n", indent, hand1, len(hand1))
-	fmt.Printf("%sHand2: %v (%d cards)\n", indent, hand2, len(hand2))
+	fmt.Printf("%sHand1 after the round: %v (%d cards)\n", indent, hand1, len(hand1))
+	fmt.Printf("%sHand2 after the round: %v (%d cards)\n", indent, hand2, len(hand2))
 	return hand1, hand2, winner
 }
 

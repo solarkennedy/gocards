@@ -19,14 +19,6 @@ type Deck struct {
 	cards []string
 }
 
-func Map(vs []string, f func(string) string) []string {
-	vsm := make([]string, len(vs))
-	for i, v := range vs {
-		vsm[i] = f(v)
-	}
-	return vsm
-}
-
 func GetDeckOfCards() *Deck {
 	cards := []string{}
 	for i := 0; i <= 12; i++ {
@@ -85,22 +77,6 @@ func (d *Deck) DealIntoHands(hands int, n int) [][]string {
 		}
 	}
 	return hand_array
-}
-
-func Append(slice, data []byte) []byte {
-	l := len(slice)
-	if l+len(data) > cap(slice) { // reallocate
-		// Allocate double what's needed, for future growth.
-		newSlice := make([]byte, (l+len(data))*2)
-		// The copy function is predeclared and works for any slice type.
-		copy(newSlice, slice)
-		slice = newSlice
-	}
-	slice = slice[0 : l+len(data)]
-	for i, c := range data {
-		slice[l+i] = c
-	}
-	return slice
 }
 
 func stringInSlice(a string, list []string) bool {
