@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/fatih/color"
 	"math/rand"
+	"time"
 )
 
 var Spades = []string{`🂡`, `🂢`, `🂣`, `🂤`, `🂥`, `🂦`, `🂧`, `🂨`, `🂩`, `🂪`, `🂫`, `🂭`, `🂮`}
@@ -62,6 +63,7 @@ func (d *Deck) Print() {
 }
 
 func (d *Deck) Shuffle() {
+	rand.Seed(time.Now().UTC().UnixNano())
 	dest := make([]string, len(d.cards))
 	perm := rand.Perm(len(d.cards))
 	for i := 0; i < len(d.cards); i++ {
