@@ -16,8 +16,9 @@ var Clubs = []string{`🃑`, `🃒`, `🃓`, `🃔`, `🃕`, `🃖`, `🃗`, `�
 //other := []string{"🃴"}
 
 type Deck struct {
-	cards []string
+	Cards []string
 }
+
 
 func GetDeckOfCards() *Deck {
 	cards := []string{}
@@ -34,7 +35,7 @@ func GetDeckOfCards() *Deck {
 		cards = append(cards, Diamonds[i])
 	}
 	var deck = new(Deck)
-	deck.cards = cards
+	deck.Cards = cards
 	return deck
 }
 
@@ -48,7 +49,7 @@ func ColorizeCard(c string) string {
 }
 
 func (d *Deck) Print() {
-	for _, c := range d.cards {
+	for _, c := range d.Cards {
 		fmt.Print(ColorizeCard(c))
 	}
 	fmt.Println()
@@ -56,12 +57,12 @@ func (d *Deck) Print() {
 
 func (d *Deck) Shuffle() {
 	rand.Seed(time.Now().UTC().UnixNano())
-	dest := make([]string, len(d.cards))
-	perm := rand.Perm(len(d.cards))
-	for i := 0; i < len(d.cards); i++ {
-		dest[i] = d.cards[perm[i]]
+	dest := make([]string, len(d.Cards))
+	perm := rand.Perm(len(d.Cards))
+	for i := 0; i < len(d.Cards); i++ {
+		dest[i] = d.Cards[perm[i]]
 	}
-	d.cards = dest
+	d.Cards = dest
 }
 
 func (d *Deck) DealIntoHands(hands int, n int) [][]string {
@@ -70,7 +71,7 @@ func (d *Deck) DealIntoHands(hands int, n int) [][]string {
 	for h := 0; h < hands; h++ {
 		hand_array[h] = make([]string, 0)
 	}
-	for len(d.cards) > 0 {
+	for len(d.Cards) > 0 && len(hand_array[0]) < n {
 		for h := 0; h < hands; h++ {
 			card := d.Pop()
 			hand_array[h] = append(hand_array[h], card)
@@ -95,8 +96,11 @@ func PopSlice(a []string) (string, []string) {
 }
 
 func (d *Deck) Pop() string {
-	card := d.cards[len(d.cards)-1]
-	d.cards = d.cards[:len(d.cards)-1]
+	if len(d.Cards) == 0 {
+		panic("You asked to draw a card from the deck but there are none!")
+	}
+	card := d.Cards[len(d.Cards)-1]
+	d.Cards = d.Cards[:len(d.Cards)-1]
 	return card
 }
 
