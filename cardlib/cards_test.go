@@ -1,8 +1,8 @@
 package cardlib
 
 import (
-	"testing"
 	"fmt"
+	"testing"
 )
 
 func assertEqual(t *testing.T, a interface{}, b interface{}, message string) {

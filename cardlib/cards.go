@@ -19,7 +19,6 @@ type Deck struct {
 	Cards []string
 }
 
-
 func GetDeckOfCards() *Deck {
 	cards := []string{}
 	for i := 0; i <= 12; i++ {
@@ -103,7 +102,6 @@ func (d *Deck) Pop() string {
 	d.Cards = d.Cards[:len(d.Cards)-1]
 	return card
 }
-
 
 func CardValue(c string) (v int) {
 	if c == "🂡" || c == "🂱" || c == "🃁" || c == "🃑" {
