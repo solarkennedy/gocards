@@ -103,7 +103,22 @@ func (d *Deck) Pop() string {
 	return card
 }
 
-func CardValue(c string) (v int) {
+func CardSuit(c string) string {
+	if stringInSlice(c, Spades) {
+		return "Spades"
+	} else if stringInSlice(c, Clubs) {
+		return "Clubs"
+	} else if stringInSlice(c, Hearts) {
+		return "Hearts"
+	} else if stringInSlice(c, Diamonds) {
+		return "Diamonds"
+	} else {
+		fmt.Printf("I don't know what suit this is: %s", c)
+		panic("Unknown suit")
+	}
+}
+
+func CardRank(c string) (v int) {
 	if c == "🂡" || c == "🂱" || c == "🃁" || c == "🃑" {
 		v = 14
 	} else if c == "🃒" || c == "🃂" || c == "🂲" || c == "🂢" {
@@ -132,4 +147,9 @@ func CardValue(c string) (v int) {
 		v = 13
 	}
 	return v
+}
+
+func Remove(s []string, i int) []string {
+	s[i] = s[len(s)-1]
+	return s[:len(s)-1]
 }

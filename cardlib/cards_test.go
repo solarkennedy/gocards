@@ -16,5 +16,5 @@ func assertEqual(t *testing.T, a interface{}, b interface{}, message string) {
 }
 
 func TestCardValue(t *testing.T) {
-	assertEqual(t, CardValue("🂡"), CardValue("🃑"), "Card value didn't match")
+	assertEqual(t, CardRank("🂡"), CardRank("🃑"), "Card value didn't match")
 }

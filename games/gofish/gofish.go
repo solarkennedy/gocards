@@ -64,7 +64,7 @@ func (g *GoFishGame) DoRound() {
 	person_to_ask := g.PickAPerson(current_player)
 
 	fmt.Printf("Player %d asks player %d: 'Do you have any %s?'\n", current_player, person_to_ask, CardToPluralString(card_to_ask))
-	hand_locations := hand_has_a(g.hands[person_to_ask], cardlib.CardValue(card_to_ask))
+	hand_locations := hand_has_a(g.hands[person_to_ask], cardlib.CardRank(card_to_ask))
 	if len(hand_locations) == 0 {
 		// If they don't have it, GO FISH!
 		fmt.Printf("\tNope! GO FISH! Player %d fishes for %s ...\n", current_player, CardToPluralString(card_to_ask))
@@ -74,7 +74,7 @@ func (g *GoFishGame) DoRound() {
 		} else {
 			fish := g.deck.Pop()
 			// If we got what we wanted, then we get to go again
-			if cardlib.CardValue(fish) == cardlib.CardValue(card_to_ask) {
+			if cardlib.CardRank(fish) == cardlib.CardRank(card_to_ask) {
 				fmt.Printf("\tPlayer %d found it! - %s\n", current_player, cardlib.ColorizeCard(fish))
 				g.hands[current_player] = append(g.hands[current_player], fish)
 			} else {
@@ -88,7 +88,7 @@ func (g *GoFishGame) DoRound() {
 		// If they have it, put it in our hand
 		fmt.Printf("\tPlayer %d does have %d %s! Give them to player %d'\n", person_to_ask, len(hand_locations), CardToPluralString(card_to_ask), current_player)
 		for i := 0; i < len(hand_locations); i++ {
-			ls := hand_has_a(g.hands[person_to_ask], cardlib.CardValue(card_to_ask))
+			ls := hand_has_a(g.hands[person_to_ask], cardlib.CardRank(card_to_ask))
 			l := ls[0]
 			g.hands[current_player] = append(g.hands[current_player], g.hands[person_to_ask][l])
 			g.hands[person_to_ask] = remove(g.hands[person_to_ask], l)
@@ -138,7 +138,7 @@ func (g *GoFishGame) Deal() {
 func hand_has_a(hand []string, card_inquery int) []int {
 	locations := []int{}
 	for index, card := range hand {
-		if cardlib.CardValue(card) == card_inquery {
+		if cardlib.CardRank(card) == card_inquery {
 			locations = append(locations, index)
 		}
 	}
@@ -175,7 +175,7 @@ func (g *GoFishGame) CalculateWinner() string {
 }
 
 func CardToPluralString(card string) string {
-	value := cardlib.CardValue(card)
+	value := cardlib.CardRank(card)
 	return CardRanktoPluralString(value)
 }
 
@@ -210,11 +210,6 @@ func CardRanktoPluralString(rank int) string {
 		panic(rank)
 	}
 
-}
-
-func remove(s []string, i int) []string {
-	s[i] = s[len(s)-1]
-	return s[:len(s)-1]
 }
 
 func main() {
