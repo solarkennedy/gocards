@@ -16,6 +16,6 @@
 *.swp
 .idea
 
-gofish
-war
-crazyeights
+/gofish
+/war
+/crazyeights

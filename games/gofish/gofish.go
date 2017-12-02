@@ -98,6 +98,11 @@ func (g *GoFishGame) DoRound() {
 	g.CalculateBooks(current_player)
 }
 
+func remove(s []string, i int) []string {
+	s[i] = s[len(s)-1]
+	return s[:len(s)-1]
+}
+
 func (g *GoFishGame) PickAPerson(current_player int) int {
 	// TODO: try picking the player with the most cards
 	// TODO: AI pick previously seen cards?
