@@ -1,5 +1,5 @@
 .PHONY: all
-all: test war gofish crazyeights
+all: war gofish crazyeights
 
 .PHONY: test
 test: cardlib/*.go
@@ -18,7 +18,7 @@ crazyeights: games/crazyeights/*.go
 	./crazyeights
 
 deps:
-	go get .
+	dep ensure
 
 clean:
 	rm war gofish crazyeights
