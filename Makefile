@@ -17,8 +17,5 @@ crazyeights: games/crazyeights/crazyeights.go
 	go build games/crazyeights/crazyeights.go
 	./crazyeights
 
-deps:
-	dep ensure
-
 clean:
 	rm war gofish crazyeights
